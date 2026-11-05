@@ -1,6 +1,4 @@
 # smart_wine_shop
-A full-stack wine e-commerce web application built using Python Flask, MySQL, HTML, CSS, JavaScript and Bootstrap, featuring user authentication, shopping cart, payment options and an admin analytics dashboard.
-# Rosé's Wine Shop
 
 Rosé's Wine Shop is a full-stack e-commerce web application developed using Python Flask, MySQL, HTML, CSS, JavaScript, and Bootstrap.
 
