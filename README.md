@@ -184,3 +184,11 @@ This project demonstrates the integration of web development, database managemen
 **Mahima Sahu**
 
 GitHub: [mahisaahu](https://github.com/mahisaahu)
+
+## Screenshots
+
+### Wine Shop Homepage
+![Wine Shop Homepage](screenshots/homepage.png)
+
+### Analytics Dashboard
+![Analytics Dashboard](screenshots/dashboard.png)
