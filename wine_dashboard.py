@@ -22,9 +22,9 @@ st.title("Rosé's Wine Shop - Sales Dashboard")
 def get_connection():
     return mysql.connector.connect(
         host='localhost',
-        user='flaskuser',
-        password='flaskpass123',
-        database='mydatabase'
+        user='',
+        password='',
+        database=''
     )
 
 # --- Fetch data from DB ---
@@ -142,7 +142,7 @@ elif ml_task == "Classification":
     y_cls = df['price_category_enc']
 
     if len(np.unique(y_cls)) < 2:
-        st.warning("⚠️ Not enough class diversity to train. Please broaden your filter.")
+        st.warning(" Not enough class diversity to train. Please broaden your filter.")
         k4.metric("Accuracy", "N/A")
 
     else:
@@ -151,7 +151,7 @@ elif ml_task == "Classification":
         )
 
         if len(np.unique(yc_train)) < 2:
-            st.error("❌ Training data contains only one class. Please broaden your filter.")
+            st.error(" Training data contains only one class. Please broaden your filter.")
             k4.metric("Accuracy", "N/A")
 
         else:
@@ -171,7 +171,7 @@ elif ml_task == "Classification":
                 "Predicted Category": yc_pred_labels
             })
 
-            st.subheader("📄 Actual vs Predicted Categories (Classification)")
+            st.subheader(" Actual vs Predicted Categories (Classification)")
             st.dataframe(results_df_cls.reset_index(drop=True), use_container_width=True)
 
             # Correct vs Incorrect bar chart
@@ -188,18 +188,18 @@ elif ml_task == "Classification":
                 z=cm, x=labels, y=labels, colorscale="YlGnBu", showscale=True
             )
             fig_cm.update_layout(
-                title_text="🔥 Confusion Matrix", xaxis_title="Predicted", yaxis_title="Actual"
+                title_text=" Confusion Matrix", xaxis_title="Predicted", yaxis_title="Actual"
             )
 
-            st.subheader("🔥 Confusion Matrix Heatmap")
+            st.subheader(" Confusion Matrix Heatmap")
             st.plotly_chart(fig_cm, use_container_width=True)
 
 # --- Full Data Table ---
-st.subheader("📋 Full Sales Data")
+st.subheader("Full Sales Data")
 st.dataframe(df, use_container_width=True)
 
 # --- Visualizations ---
-st.subheader("📊 Sales Visualizations")
+st.subheader("Sales Visualizations")
 c1, c2 = st.columns(2)
 with c1:
     fig1 = px.bar(df, x="region", y="total_price", title="Sales by Region", color="region")
@@ -214,7 +214,7 @@ st.plotly_chart(fig3, use_container_width=True)
 fig4 = px.line(df, x="date_of_sale", y="quantity", title="Sales Over Time")
 st.plotly_chart(fig4, use_container_width=True)
 
-st.subheader("🌞 Sales Breakdown")
+st.subheader(" Sales Breakdown")
 fig5 = px.sunburst(df, path=['region', 'product_name'], values='quantity',
                    title="Sales by Region and Wine Type", width=600, height=500)
 st.plotly_chart(fig5, use_container_width=False)
