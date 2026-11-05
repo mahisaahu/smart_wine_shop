@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Support Desk - Rosé's Wine Shop</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/info.css') }}">
+</head>
+<body>
+  <header>
+    <h1>Support Desk</h1>
+  </header>
+
+  <main>
+    <section>
+      <h2>Contact Us</h2>
+      <p>Need assistance? Our support team is ready to help you with orders, delivery, and product information.</p>
+      <p>Email: support@roseswineshop.com</p>
+      <p>Phone: +1-234-567-890</p>
+    </section>
+
+    <section>
+      <h2>FAQ</h2>
+      <p>Check our Frequently Asked Questions for quick answers.</p>
+      <a href="/faq"><button>View FAQ</button></a>
+    </section>
+  </main>
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h4>About Us</h4>
+        <p>Rosé's Wine Shop brings you the finest selection of wines. Quality guaranteed.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <a href="{{ url_for('about') }}">About Us</a>
+        <a href="{{ url_for('privacy') }}">Privacy Policy</a>
+        <a href="{{ url_for('terms') }}">Terms & Conditions</a>
+        <a href="{{ url_for('faqs') }}">FAQs</a>
+      </div>
+      <div class="footer-section">
+        <h4>Contact</h4>
+        <p>📍 raipur chhattisgarh </p>
+        <p>📞 +91 8871998864 </p>
+        <p>✉️ support@roseswineshop.com</p>
+      </div>
+      <div class="footer-section">
+        <h4>Newsletter</h4>
+        <p>Sign up for updates and exclusive offers.</p>
+        <form method="POST" action="{{ url_for('subscribe_newsletter') }}">
+          <input type="email" name="email" placeholder="Enter your email" required>
+          <button type="submit">Subscribe</button>
+        </form>
+        <div class="socials">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Rosé's Wine Shop. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>

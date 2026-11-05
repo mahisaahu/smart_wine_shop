@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Terms & Conditions | Rosé's Wine Shop</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <section id="header">
+    <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='img/logo.jpeg') }}" class="logo" alt="logo" /></a>
+    <div>
+      <ul id="navbar">
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="{{ url_for('shop') }}">Shop</a></li>
+       
+        <li><a href="{{ url_for('login') }}">Log in</a></li>
+        <li><a href="{{ url_for('signin') }}">Register</a></li>
+        <li id="lg-bag">
+          <a href="{{ url_for('cart') }}"><i class="fa-solid fa-bag-shopping"></i></a>
+          {% if cart_item_count > 0 %}
+            <span class="cart-count">{{ cart_item_count }}</span>
+          {% endif %}
+        </li>
+        <a href="#" id="close"><i class="fas fa-times"></i></a>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Hero Section -->
+  <section id="page-header">
+    <div class="content">
+      <h1>Terms & Conditions</h1>
+    </div>
+  </section>
+
+  <!-- Terms Content -->
+  <section class="section-p1">
+    <h2>Welcome to Rosé's Wine Shop</h2>
+    <p>These terms and conditions outline the rules and regulations for the use of Rosé's Wine Shop's website and services.</p>
+
+    <h3>1. Acceptance of Terms</h3>
+    <p>By accessing this website, you accept these terms and conditions in full. Do not continue to use Rosé's Wine Shop if you do not accept all of the terms stated here.</p>
+
+    <h3>2. Purchases</h3>
+    <p>When you place an order, you agree that all information provided is accurate and complete. We reserve the right to refuse or cancel any order for any reason.</p>
+
+    <h3>3. Intellectual Property</h3>
+    <p>All content on this website, including text, graphics, logos, and images, is the property of Rosé's Wine Shop and is protected by copyright laws.</p>
+
+    <h3>4. User Responsibilities</h3>
+    <p>You must not misuse our website by knowingly introducing viruses or other harmful material. You agree not to use the site for any unlawful purpose.</p>
+
+    <h3>5. Limitation of Liability</h3>
+    <p>Rosé's Wine Shop shall not be liable for any damages arising from the use or inability to use this website or the services provided.</p>
+
+    <h3>6. Changes to Terms</h3>
+    <p>We may revise these terms at any time. By using this site, you agree to be bound by the current version of these terms.</p>
+
+    <h3>Contact Us</h3>
+    <p>If you have questions about these Terms & Conditions, please contact us at
+      <a href="mailto:support@roseswineshop.com">support@roseswineshop.com</a>.
+    </p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h4>About Us</h4>
+        <p>Rosé's Wine Shop brings you the finest selection of wines. Quality guaranteed.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <a href="{{ url_for('about') }}">About Us</a>
+        <a href="{{ url_for('privacy') }}">Privacy Policy</a>
+        <a href="{{ url_for('terms') }}">Terms & Conditions</a>
+        <a href="{{ url_for('faqs') }}">FAQs</a>
+      </div>
+      <div class="footer-section">
+        <h4>Contact</h4>
+        <p>📍 raipur chhattisgarh </p>
+        <p>📞 +91 8871998864 </p>
+        <p>✉️ support@roseswineshop.com</p>
+      </div>
+      <div class="footer-section">
+        <h4>Newsletter</h4>
+        <p>Sign up for updates and exclusive offers.</p>
+        <form method="POST" action="{{ url_for('subscribe_newsletter') }}">
+          <input type="email" name="email" placeholder="Enter your email" required>
+          <button type="submit">Subscribe</button>
+        </form>
+        <div class="socials">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Rosé's Wine Shop. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

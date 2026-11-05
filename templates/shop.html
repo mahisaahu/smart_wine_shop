@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wine Shop</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+
+  <!-- Header -->
+  <section id="header">
+    <a href="#"><img src="{{ url_for('static', filename='img/logo.jpeg') }}" class="logo" alt="logo"></a>
+    <div>
+      <ul id="navbar">
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a class="active" href="{{ url_for('shop') }}">Shop</a></li>
+        {% if session.get('user_id') %}
+          <li><a href="{{ url_for('order_history') }}">Order History</a></li>
+          <li><a href="{{ url_for('streamlit_dashboard') }}" target="_blank">Dashboard</a></li>
+          <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        {% else %}
+          <li><a href="{{ url_for('login') }}">Log in</a></li>
+          <li><a href="{{ url_for('signin') }}">Register</a></li>
+        {% endif %}
+        <li id="lg-bag"><a href="{{ url_for('cart') }}"><i class="fa-solid fa-bag-shopping"></i></a></li>
+      </ul>
+    </div>
+    <div id="mobile">
+      <a href="{{ url_for('cart') }}" style="color: black;"><i class="fa-solid fa-bag-shopping"></i></a>
+      <i id="bar" class="fas fa-outdent"></i>
+    </div>
+  </section>
+
+  <!-- Page header -->
+  <section id="page-header">
+    <div class="content">
+      <h1 style="color: white;">#Celebration</h1>
+      <p style="color: white; font-size: 18px;">Lorem ipsum dolor, sit amet consect</p>
+    </div>
+  </section>
+
+  <!-- Dynamic Product Rendering -->
+  {% for product in products %}
+  <section class="section-p1" id="{{ product[1]|lower|replace(' ', '') }}">
+    <div id="prodetailes">
+      <div class="single-pro-image">
+        <img src="{{ url_for('static', filename=product[4]) }}" width="100%" id="MainImg" alt="{{ product[1] }}">
+      </div>
+      <div class="single-pro-details">
+        <h3>{{ product[1] }}</h3>
+        <h4 id="price">Price: ₹{{ "%.2f"|format(product[2]) }}</h4>
+        <form action="{{ url_for('add_to_cart') }}" method="POST">
+          <input type="hidden" name="product_id" value="{{ product[0] }}">
+          <input type="hidden" name="name" value="{{ product[1] }}">
+          <input type="hidden" name="price" value="{{ product[2] }}">
+          <input type="number" name="quantity" value="1" min="1" required>
+          <button type="submit">Add To Cart</button>
+        </form>
+        <h4 id="h4p">Product Details</h4>
+        <span id="ppara">{{ product[3] }}</span>
+      </div>
+    </div>
+  </section>
+  {% endfor %}
+
+  <!-- Toast Notification -->
+  <div id="custom-toast" class="hidden">
+    <span id="custom-toast-message"></span>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h4>About Us</h4>
+        <p>Rosé's Wine Shop brings you the finest selection of wines. Quality guaranteed.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <a href="{{ url_for('about') }}">About Us</a>
+        <a href="{{ url_for('privacy') }}">Privacy Policy</a>
+        <a href="{{ url_for('terms') }}">Terms & Conditions</a>
+        <a href="{{ url_for('faqs') }}">FAQs</a>
+      </div>
+      <div class="footer-section">
+        <h4>Contact</h4>
+        <p>📍 Raipur Chhattisgarh </p>
+        <p>📞 +91 8871998864 </p>
+        <p>✉️ support@roseswineshop.com</p>
+      </div>
+      <div class="footer-section">
+        <h4>Newsletter</h4>
+        <p>Sign up for updates and exclusive offers.</p>
+        <form method="POST" action="{{ url_for('subscribe_newsletter') }}">
+          <input type="email" name="email" placeholder="Enter your email" required>
+          <button type="submit">Subscribe</button>
+        </form>
+        <div class="socials">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Rosé's Wine Shop. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        {% if category == 'cart' %}
+          <script>
+            document.addEventListener("DOMContentLoaded", () => {
+              const toast = document.getElementById("custom-toast");
+              const messageSpan = document.getElementById("custom-toast-message");
+              messageSpan.textContent = "{{ message }}";
+              toast.classList.remove("hidden");
+              setTimeout(() => toast.classList.add("show"), 10);
+              setTimeout(() => {
+                toast.classList.remove("show");
+              }, 3000);
+            });
+          </script>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+</body>
+</html>

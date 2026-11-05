@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Wine Shop FAQ Chatbot</title>
+</head>
+<body>
+  <h1>Ask our FAQ Chatbot</h1>
+  <input type="text" id="userMessage" placeholder="Type your question...">
+  <button onclick="sendMessage()">Send</button>
+  <div id="botResponse"></div>
+
+  <script>
+    function sendMessage() {
+      const userMessage = document.getElementById("userMessage").value;
+
+      fetch("/chatbot", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMessage })
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("botResponse").innerText = data.answer;
+      });
+    }
+  </script>
+</body>
+</html>

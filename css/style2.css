@@ -1,0 +1,397 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'League Spartan', sans-serif;
+}
+
+body {
+  width: 100%;
+}
+
+/* Typography */
+h1 {
+  font-size: 3rem;
+  line-height: 1.2;
+  color: #B8860B;
+}
+
+h2 {
+  font-size: 2.8rem;
+  line-height: 1.2;
+  color: #B8860B;
+}
+
+h4 {
+  font-size: 1.25rem;
+  color: #B8860B;
+}
+
+p {
+  font-size: 1rem;
+  color: #B8860B;
+  margin: 1rem 0;
+}
+
+/* Layout Utilities */
+.section-p1 {
+  padding: 40px 80px;
+}
+
+.section-m1 {
+  margin: 40px 0;
+}
+
+/* Header */
+#header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 80px;
+  background: white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.0);
+  position: sticky;
+  z-index: 999;
+  top: 0;
+  left: 0;
+}
+
+.logo {
+  height: 100px;
+  width: auto;
+}
+
+/* Navbar */
+#navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#navbar li {
+  list-style: none;
+  padding: 0 20px;
+  position: relative;
+}
+
+#navbar li a {
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #D4AF37;
+  transition: 0.3s ease;
+}
+
+#navbar li a:hover,
+#navbar li a.active {
+  color: black;
+}
+
+#navbar li a.active::after,
+#navbar li a:hover::after {
+  content: "";
+  width: 30%;
+  height: 2px;
+  background: black;
+  position: absolute;
+  bottom: -4px;
+  left: 20px;
+}
+
+/* Section Two (Hero) */
+#sectwo {
+  background-image: url('sec2.jpg');
+  background-size: cover;
+  background-position: top 25% right 0;
+  height: 90vh;
+  width: 100%;
+  padding: 0 80px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  margin: 2rem 0;
+}
+
+#sectwo h1 {
+  color: #d98c00;
+  font-size: 2rem;
+}
+
+#sectwo p {
+  font-size: 1.2rem;
+  color: #d98c00;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+/* Button */
+.btn1 {
+  display: inline-block;
+  margin-top: 30px;
+  color: black;
+  background-color: #B8860B;
+  padding: 14px 50px;
+  font-size: 1.25rem;
+  border: none;
+  border-radius: 8px;
+  transition: 0.3s ease;
+}
+
+.btn1:hover {
+  background-color: #d98c00;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Animated Shadow Content Box */
+.content {
+  text-align: left;
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  padding-left: 40px;
+  width: 100%;
+  max-width: 600px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  animation: shadowPulse 2s infinite ease-in-out;
+}
+
+@keyframes shadowPulse {
+  0% {
+    box-shadow: 0 12px 30px 10px rgba(0, 0, 0, 0.6);
+  }
+  50% {
+    box-shadow: 0 12px 40px 20px rgba(0, 0, 0, 0.8);
+  }
+  100% {
+    box-shadow: 0 12px 30px 10px rgba(0, 0, 0, 0.6);
+  }
+}
+
+/* Feature Section */
+#feature {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#feature .fe-box {
+  border: 1px solid black;
+  padding: 12px;
+  text-align: center;
+  transition: box-shadow 0.3s ease;
+  cursor: pointer;
+  width: 180px;
+  border-radius: 8px;
+}
+
+#feature .fe-box:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+#feature .fe-box img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+#feature .fe-box h6 {
+  padding: 8px;
+  border-radius: 4px;
+  color: goldenrod;
+  background-color: black;
+}
+
+#feature .fe-box:nth-child(2) h6 {
+  background-color: #d98c00;
+  color: black;
+}
+#feature .fe-box:nth-child(3) h6 {
+  background-color: silver;
+  color: navy;
+}
+#feature .fe-box:nth-child(4) h6 {
+  background-color: green;
+  color: white;
+}
+
+/* Product Section */
+#product1 {
+  text-align: center;
+}
+
+.pro-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start;
+  padding: 20px;
+}
+
+.pro {
+  width: 23%;
+  min-width: 250px;
+  padding: 10px 12px;
+  border: 1px solid black;
+  border-radius: 25px;
+  cursor: pointer;
+  box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.2);
+  transition: 0.2s ease;
+  position: relative;
+}
+
+.pro:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.pro img {
+  width: 100%;
+  border-radius: 20px;
+  object-fit: cover;
+}
+#product1 .pro img {
+    #product1 .pro img {
+    width: 100%;
+    height: 200px; /* Control vertical size */
+    object-fit: cover; /* Prevent distortion */
+    border-radius: 20px;
+    display: block;
+}
+
+}
+
+
+.pro .des {
+  text-align: start;
+  padding: 10px 0;
+}
+
+.pro .des span {
+  color: #060606;
+  font-size: 0.8rem;
+}
+
+.pro .des h5 {
+  padding-top: 7px;
+  color: #060606;
+  font-size: 0.9rem;
+}
+
+.pro .des h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #B8860B;
+}
+
+.pro .cart {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 50%;
+  background-color: beige;
+  color: #B8860B;
+  border: 1px solid #B8860B;
+  position: absolute;
+  bottom: 20px;
+  right: 10px;
+  text-align: center;
+}
+
+/* Footer */
+footer {
+  padding: 20px;
+  background-color: #fff;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 200px;
+}
+
+.col h4 {
+  color: #b8860b;
+  margin-bottom: 10px;
+  font-size: 1.125rem;
+  font-family: sans-serif;
+}
+
+.col a {
+  text-decoration: none;
+  color: #5c4033;
+  margin-bottom: 8px;
+  font-family: sans-serif;
+  font-size: 1rem;
+}
+
+.social-icons i {
+  font-size: 1.25rem;
+  margin-right: 10px;
+  color: black;
+}
+
+.payment-icons {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.payment-icons img {
+  width: 50px;
+  margin-right: 12px;
+}
+
+/* Responsive */
+@media (max-width: 799px) {
+  #navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: fixed;
+    top: 0;
+    right: -1000px;
+    height: 100vh;
+    width: 300px;
+    background-color: white;
+    box-shadow: 0 40px 60px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 80px 0 0 10px;
+    transition: right 0.3s ease;
+  }
+
+  #navbar li {
+    margin-bottom: 25px;
+  }
+
+  .pro {
+    width: 48%;
+  }
+}
+
+@media (max-width: 480px) {
+  .pro {
+    width: 100%;
+  }
+
+  #header {
+    padding: 20px;
+  }
+
+  .section-p1 {
+    padding: 20px;
+  }
+}

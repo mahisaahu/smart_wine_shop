@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fake Payment Gateway</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #fff7f2;
+      padding: 40px;
+      max-width: 600px;
+      margin: auto;
+    }
+    h1 { text-align: center; color: #6b1a1a; }
+    form { background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px #ccc; }
+    label { display: block; margin-top: 20px; font-weight: bold; }
+    input, select {
+      width: 100%; padding: 12px; margin-top: 5px; border-radius: 6px; border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 20px; padding: 12px; width: 100%;
+      background: #8b0000; color: white; border: none; border-radius: 8px; font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover { background: #a10000; }
+    .tab-buttons {
+      display: flex; justify-content: space-between; margin-bottom: 20px;
+    }
+    .tab-buttons button {
+      width: 49%; background: #ddd; color: #333;
+    }
+    .tab-buttons button.active {
+      background: #8b0000; color: white;
+    }
+    .hidden { display: none; }
+    .qr {
+      display: block; margin: 20px auto; width: 200px; height: 200px;
+      background: url('https://api.qrserver.com/v1/create-qr-code/?data=upi://pay?pa=demo@upi&pn=FakeStore&am=100&cu=INR') no-repeat center;
+      background-size: contain;
+    }
+    #timer {
+      text-align: center;
+      font-weight: bold;
+      margin-top: 10px;
+      color: #555;
+    }
+    #message {
+      text-align: center;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+    .success { color: green; }
+    .error { color: red; }
+  </style>
+</head>
+<body>
+  <h1>Fake Payment</h1>
+
+  <div class="tab-buttons">
+    <button onclick="switchTab('card')" class="active">Credit Card</button>
+    <button onclick="switchTab('upi')">UPI</button>
+  </div>
+
+  <form id="payment-form">
+    <!-- Credit Card Section -->
+    <div id="card-section">
+      <label>Card Number</label>
+      <input type="text" placeholder="1234 5678 9012 3456" required>
+
+      <label>Card Holder Name</label>
+      <input type="text" required>
+
+      <label>Expiry Date</label>
+      <input type="text" placeholder="MM/YY" required>
+
+      <label>CVV</label>
+      <input type="password" maxlength="4" required>
+    </div>
+
+    <!-- UPI Section -->
+    <div id="upi-section" class="hidden">
+      <label>Scan the QR to Pay</label>
+      <div class="qr"></div>
+
+      <label>Enter Mobile Number</label>
+      <input type="tel" placeholder="Enter your mobile" id="mobile" required>
+
+      <button type="button" onclick="sendOTP()">Send OTP</button>
+
+      <div id="otp-area" class="hidden">
+        <label>Enter OTP</label>
+        <input type="text" placeholder="123456" maxlength="6" id="otp-input">
+        <div id="timer"></div>
+        <button type="button" onclick="verifyOTP()">Verify OTP</button>
+        <button type="button" onclick="resendOTP()">Resend OTP</button>
+      </div>
+    </div>
+
+    <div id="message"></div>
+    <button type="submit">Pay ₹100</button>
+  </form>
+
+  <script>
+    let currentTab = 'card';
+    let countdown;
+    let timeLeft = 60;
+    const correctOTP = "123456"; // Fixed OTP for simulation
+
+    function switchTab(method) {
+      currentTab = method;
+      document.querySelector('#card-section').classList.toggle('hidden', method !== 'card');
+      document.querySelector('#upi-section').classList.toggle('hidden', method !== 'upi');
+      document.querySelectorAll('.tab-buttons button').forEach(btn => btn.classList.remove('active'));
+      document.querySelector(`.tab-buttons button[onclick="switchTab('${method}')"]`).classList.add('active');
+      document.getElementById('message').textContent = '';
+    }
+
+    function sendOTP() {
+      const mobile = document.getElementById('mobile').value;
+      if (mobile.length < 10) {
+        alert('Please enter a valid mobile number.');
+        return;
+      }
+      alert('OTP sent to ' + mobile + ' (use 123456)');
+      document.getElementById('otp-area').classList.remove('hidden');
+      document.getElementById('message').textContent = '';
+      startTimer();
+    }
+
+    function startTimer() {
+      clearInterval(countdown);
+      timeLeft = 60;
+      document.getElementById('timer').textContent = `OTP expires in 60s`;
+      countdown = setInterval(() => {
+        timeLeft--;
+        document.getElementById('timer').textContent = `OTP expires in ${timeLeft}s`;
+        if (timeLeft <= 0) {
+          clearInterval(countdown);
+          document.getElementById('timer').textContent = 'OTP expired. Click Resend.';
+        }
+      }, 1000);
+    }
+
+    function verifyOTP() {
+      const userOTP = document.getElementById('otp-input').value;
+      const messageEl = document.getElementById('message');
+      if (timeLeft <= 0) {
+        messageEl.textContent = "OTP has expired.";
+        messageEl.className = "error";
+        return;
+      }
+      if (userOTP === correctOTP) {
+        messageEl.textContent = "Payment Successful!";
+        messageEl.className = "success";
+      } else {
+        messageEl.textContent = "Invalid OTP. Try again.";
+        messageEl.className = "error";
+      }
+    }
+
+    function resendOTP() {
+      document.getElementById('otp-input').value = '';
+      sendOTP();
+    }
+
+    document.getElementById('payment-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (currentTab === 'upi') {
+        const message = document.getElementById('message');
+        if (document.getElementById('otp-input').value !== correctOTP || timeLeft <= 0) {
+          message.textContent = "Please verify OTP before submitting.";
+          message.className = "error";
+          return;
+        }
+      }
+      alert('Payment Successful! (Simulated)');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Cart</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fdf8f4;
+      color: #333;
+      padding: 40px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    h2 {
+      font-size: 36px;
+      color: #6b1a1a;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 12px;
+      margin-bottom: 30px;
+    }
+
+    thead {
+      background-color: #f1e4c3;
+    }
+
+    th {
+      padding: 16px;
+      font-weight: 600;
+      text-align: left;
+      font-size: 16px;
+      color: #5a3e1b;
+    }
+
+    td {
+      padding: 16px;
+      background-color: #fff;
+      border-radius: 8px;
+      font-size: 15px;
+      vertical-align: middle;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+
+    .total {
+      font-size: 20px;
+      font-weight: bold;
+      text-align: right;
+      margin-top: 20px;
+    }
+
+    button, .remove-btn {
+      padding: 10px 20px;
+      background-color: #8B0000;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .remove-btn {
+      background-color: #c0392b;
+    }
+
+    button:hover, .remove-btn:hover {
+      background-color: #a10000;
+    }
+
+    .remove-btn:hover {
+      background-color: #a7281e;
+    }
+
+    .actions form {
+      display: inline;
+    }
+
+    .empty {
+      text-align: center;
+      font-size: 18px;
+      color: #888;
+      margin-top: 40px;
+    }
+
+    .checkout-link {
+      text-align: right;
+      margin-top: 30px;
+    }
+
+    .checkout-link a {
+      text-decoration: none;
+    }
+
+    .checkout-link button {
+      background-color: #6b1a1a;
+    }
+  </style>
+</head>
+<body>
+
+  <section id="cart-section">
+    <h2>Your Cart</h2>
+
+    {% if cart %}
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Subtotal</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% set total = 0 %}
+        {% for item in cart %}
+        {% set subtotal = item.price * item.quantity %}
+        {% set total = total + subtotal %}
+        <tr>
+          <td>{{ item.name }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>₹{{ "%.2f"|format(item.price) }}</td>
+          <td>₹{{ "%.2f"|format(subtotal) }}</td>
+          <td class="actions">
+            <form action="{{ url_for('remove_from_cart', product_id=item.product_id) }}" method="POST">
+              <button type="submit" class="remove-btn">Remove</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <p class="total">Total: ₹{{ "%.2f"|format(total_price) }}</p>
+
+    <div class="checkout-link">
+      <a href="{{ url_for('checkout') }}">
+        <button>Proceed to Checkout</button>
+      </a>
+    </div>
+
+    {% else %}
+    <p class="empty">Your cart is empty.</p>
+    {% endif %}
+  </section>
+
+</body>
+</html>

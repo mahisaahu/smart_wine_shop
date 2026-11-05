@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Orders</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fdf8f4;
+      color: #333;
+      padding: 40px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    h2 {
+      font-size: 36px;
+      color: #6b1a1a;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 12px;
+    }
+
+    th, td {
+      padding: 14px 18px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f1e4c3;
+      color: #5a3e1b;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    td {
+      background-color: #fff;
+      border-radius: 8px;
+      font-size: 15px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+
+    .empty {
+      text-align: center;
+      font-size: 18px;
+      color: #888;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Your Order History</h2>
+
+  {% if orders %}
+  <table>
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price (₹)</th>
+        <th>Date</th>
+        <th>Payment</th>
+        <th>Location</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for order in orders %}
+      <tr>
+        <td>{{ order[0] }}</td>
+        <td>{{ order[1] }}</td>
+        <td>{{ "%.2f"|format(order[2]) }}</td>
+        <td>{{ order[3] }}</td>
+        <td>{{ order[4] }}</td>
+        <td>{{ order[6] }}, {{ order[5] }}, {{ order[7] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty">You have no past orders.</p>
+  {% endif %}
+
+</body>
+</html>

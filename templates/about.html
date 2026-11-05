@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>About Us | Rosé's Wine Shop</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <!-- Font Awesome if you want icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- ✅ Reuse your header/navbar -->
+  <section id="header">
+    <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='img/logo.jpeg') }}" class="logo" alt="logo" /></a>
+    <div>
+      <ul id="navbar">
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="{{ url_for('shop') }}">Shop</a></li>
+        
+        <li><a href="{{ url_for('login') }}">Log in</a></li>
+        <li><a href="{{ url_for('signin') }}">Register</a></li>
+        <li id="lg-bag">
+          <a href="{{ url_for('cart') }}"><i class="fa-solid fa-bag-shopping"></i></a>
+          {% if cart_item_count > 0 %}
+            <span class="cart-count">{{ cart_item_count }}</span>
+          {% endif %}
+        </li>
+        <a href="#" id="close"><i class="fas fa-times"></i></a>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ✅ Hero banner to match home -->
+  <section id="page-header">
+    <div class="content">
+      <h1>About Rosé's Wine Shop</h1>
+    </div>
+  </section>
+
+  <!-- ✅ About content -->
+  <section class="section-p1">
+    <h2>Our Story</h2>
+    <p>
+      At Rosé's Wine Shop, we believe in celebrating life one sip at a time.
+      Founded in 2025, our mission is to bring you hand-picked wines from the world’s finest vineyards.
+      We’re passionate about quality, community, and creating unforgettable moments.
+    </p>
+    <p>
+      Whether you're a seasoned connoisseur or just beginning your wine journey,
+      Rosé's Wine Shop is here to guide you every step of the way.
+      Cheers to good times, great friends, and even better wine!
+    </p>
+  </section>
+
+ <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h4>About Us</h4>
+        <p>Rosé's Wine Shop brings you the finest selection of wines. Quality guaranteed.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <a href="{{ url_for('about') }}">About Us</a>
+        <a href="{{ url_for('privacy') }}">Privacy Policy</a>
+        <a href="{{ url_for('terms') }}">Terms & Conditions</a>
+        <a href="{{ url_for('faqs') }}">FAQs</a>
+      </div>
+      <div class="footer-section">
+        <h4>Contact</h4>
+        <p>📍 raipur chhattisgarh </p>
+        <p>📞 +91 8871998864 </p>
+        <p>✉️ support@roseswineshop.com</p>
+      </div>
+      <div class="footer-section">
+        <h4>Newsletter</h4>
+        <p>Sign up for updates and exclusive offers.</p>
+        <form method="POST" action="{{ url_for('subscribe_newsletter') }}">
+          <input type="email" name="email" placeholder="Enter your email" required>
+          <button type="submit">Subscribe</button>
+        </form>
+        <div class="socials">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Rosé's Wine Shop. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rosé's Wine Shop</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Header Section -->
+  <section id="header">
+    <a href="#"><img src="{{ url_for('static', filename='img/logo.jpeg') }}" class="logo" alt="logo" /></a>
+
+    <div>
+      <ul id="navbar">
+        <li><a class="active" href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="{{ url_for('shop') }}">Shop</a></li>
+        <li><a href="{{ url_for('streamlit_dashboard') }}" target="_blank">Dashboard</a></li>
+       {% if session.get('user_id') %}
+  <li><a href="{{ url_for('logout') }}">Logout</a></li>
+{% else %}
+  <li><a href="{{ url_for('login') }}">Log in</a></li>
+  <li><a href="{{ url_for('signin') }}">Register</a></li>
+{% endif %}
+
+
+        <li id="lg-bag">
+          <a href="{{ url_for('cart') }}"><i class="fa-solid fa-bag-shopping"></i></a>
+          {% if cart_item_count > 0 %}
+            <span class="cart-count">{{ cart_item_count }}</span>
+          {% endif %}
+        </li>
+
+        <a href="#" id="close"><i class="fas fa-times"></i></a>
+      </ul>
+    </div>
+
+    <div id="mobile">
+      <a href="#" style="color: black;"><i class="fa-solid fa-bag-shopping"></i></a>
+      <i id="bar" class="fas fa-outdent"></i>
+    </div>
+  </section>
+
+  <!-- Hero Section -->
+  <section id="sectwo">
+    <div class="content">
+      <h1>Hello this is Rosé's wine shop</h1>
+      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Id saepe doloribus totam deserunt inventore,
+        exercitationem eum officiis sed at veniam magni neque quas rem nulla facere aliquam porro quaerat molestias.</p>
+      <a href="{{ url_for('shop') }}"><button class="btn1">Shop Now</button></a>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="feature" class="section-p1">
+    <a href="{{ url_for('delivery') }}">
+      <div class="fe-box">
+        <img src="{{ url_for('static', filename='img/freeshipping.png') }}" alt="Free Shipping" />
+        <h6>Free Shipping</h6>
+      </div>
+    </a>
+
+    <a href="{{ url_for('shop') }}">
+      <div class="fe-box">
+        <img src="{{ url_for('static', filename='img/online.png') }}" alt="Order Online" />
+        <h6>Order online</h6>
+      </div>
+    </a>
+
+    <a href="{{ url_for('support') }}">
+      <div class="fe-box">
+        <img src="{{ url_for('static', filename='img/help.jpg') }}" alt="Support Desk" />
+        <h6>Support desk</h6>
+      </div>
+    </a>
+
+    <a href="{{ url_for('discount') }}">
+      <div class="fe-box">
+        <img src="{{ url_for('static', filename='img/sale.png') }}" alt="Discount" />
+        <h6>Discount</h6>
+      </div>
+    </a>
+  </section>
+
+  <!-- Featured Products -->
+  <section id="product1" class="section-p1">
+    <h2>Featured Products</h2>
+    <div class="pro-container">
+      {% set products = [
+        {"category": "Red wine", "name": "Merlot", "price": 1500, "image": "img/red.jpg", "link": "#tempranillo"},
+        {"category": "White wine", "name": "Chardonnay", "price": 2000, "image": "img/white.jpg", "link": "#sauvignon"},
+        {"category": "Rosé wine", "name": "Pink Moscato", "price": 3000, "image": "img/rose.jpg", "link": "#moscato"},
+        {"category": "Sparkling wine", "name": "Prosecco", "price": 3500, "image": "img/sparkling.jpg", "link": "#prosecco"}
+      ] %}
+
+      {% for product in products %}
+      <div class="pro">
+        <img src="{{ url_for('static', filename=product.image) }}" alt="{{ product.name }}" />
+        <div class="des">
+          <span>{{ product.category }}</span>
+          <h5>{{ product.name }}</h5>
+          <div class="Star">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <h4>₹{{ product.price }}</h4>
+        </div>
+        <a href="{{ url_for('shop') }}{{ product.link }}"><i class="fas fa-shopping-cart cart"></i></a>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h4>About Us</h4>
+        <p>Rosé's Wine Shop brings you the finest selection of wines. Quality guaranteed.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <a href="{{ url_for('about') }}">About Us</a>
+        <a href="{{ url_for('privacy') }}">Privacy Policy</a>
+        <a href="{{ url_for('terms') }}">Terms & Conditions</a>
+        <a href="{{ url_for('faqs') }}">FAQs</a>
+      </div>
+      <div class="footer-section">
+        <h4>Contact</h4>
+        <p>📍 Raipur Chhattisgarh </p>
+        <p>📞 +91 8871998864 </p>
+        <p>✉️ support@roseswineshop.com</p>
+      </div>
+      <div class="footer-section">
+        <h4>Newsletter</h4>
+        <p>Sign up for updates and exclusive offers.</p>
+        <form method="POST" action="{{ url_for('subscribe_newsletter') }}">
+          <input type="email" name="email" placeholder="Enter your email" required>
+          <button type="submit">Subscribe</button>
+        </form>
+        <div class="socials">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Rosé's Wine Shop. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Floating Chatbot Icon -->
+  <div id="chatbot-icon" onclick="toggleChatbot()">💬</div>
+
+  <!-- Chatbot Popup -->
+  <div id="chatbot-popup">
+    <div id="chat-header">
+      FAQ Chatbot
+      <span id="chat-close" onclick="toggleChatbot()">&times;</span>
+    </div>
+
+    <div id="chat-messages"></div>
+
+    <div id="chat-suggestions">
+      <p>Try asking:</p>
+      <button onclick="useSuggestion('What wines do you have?')">Wines available</button>
+      <button onclick="useSuggestion('Do you ship internationally?')">Shipping</button>
+      <button onclick="useSuggestion('What is the price range?')">Price range</button>
+    </div>
+
+    <div id="chat-input">
+      <input type="text" id="user-input" placeholder="Ask a question...">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+  function toggleChatbot() {
+    const popup = document.getElementById('chatbot-popup');
+    popup.style.display = (popup.style.display === 'flex') ? 'none' : 'flex';
+    popup.style.flexDirection = 'column';
+  }
+
+  function useSuggestion(text) {
+    const input = document.getElementById('user-input');
+    input.value = text;
+    sendMessage(text);
+  }
+
+  function sendMessage(text = null) {
+    const input = document.getElementById('user-input');
+    const message = text || input.value.trim();
+    if (!message) return;
+
+    const messages = document.getElementById('chat-messages');
+    messages.innerHTML += `<div><strong>You:</strong> ${message}</div>`;
+
+    fetch('/chatbot', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ message: message })
+    })
+    .then(async res => {
+      if (!res.ok) throw new Error("Network response was not ok");
+      const data = await res.json();
+      messages.innerHTML += `<div><strong>Bot:</strong> ${data.response}</div>`;
+      messages.scrollTop = messages.scrollHeight;
+    })
+    .catch(err => {
+      console.error("❌ Chatbot error:", err);
+      messages.innerHTML += `<div><strong>Bot:</strong> Oops! Something went wrong.</div>`;
+    });
+
+    input.value = '';
+  }
+</script>
+
+
+
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
