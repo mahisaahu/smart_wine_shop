@@ -142,9 +142,9 @@ def logout():
     if streamlit_pid:
         try:
             subprocess.run(["taskkill", "/PID", str(streamlit_pid), "/F", "/T"], check=True)
-            print(f"✅ Streamlit process {streamlit_pid} killed.")
+            print(f" Streamlit process {streamlit_pid} killed.")
         except Exception as e:
-            print(f"⚠️ Could not kill Streamlit process: {e}")
+            print(f"Could not kill Streamlit process: {e}")
 
     session.clear()
     flash("You have been logged out.", "info")
@@ -225,17 +225,17 @@ def checkout():
         payment_method = request.form.get('payment_method')
         purchase_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-        # 💳 Payment fields
+        # Payment fields
         card_holder_name = request.form.get('card_name')
         card_number = request.form.get('card_number')
         expiry_date = request.form.get('card_expiry')
         cvv = request.form.get('card_cvv')
         upi_id = request.form.get('upi_id')
 
-        # 🧾 Combine full billing address
+        # Combine full billing address
         billing_address = f"{full_name}, {mobile}, {address1}, {address2}, {pincode}, {region}, {state}, {country}"
 
-        # 🔐 Hash card number and CVV
+        #  Hash card number and CVV
         card_number_hash = None
         cvv_hash = None
         if payment_method in ['Credit Card', 'Debit Card']:
@@ -243,7 +243,7 @@ def checkout():
                 card_number_hash = bcrypt.hashpw(card_number.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
                 cvv_hash = bcrypt.hashpw(cvv.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
-        # 💾 Save to `payment_details` table
+        #  Save to `payment_details` table
         cursor = mysql.connection.cursor()
         cursor.execute("""
             INSERT INTO payment_details (
@@ -259,7 +259,7 @@ def checkout():
             cvv_hash, billing_address
         ))
 
-        # ✅ Check stock for all products
+        # Check stock for all products
         for item in cart:
             cursor.execute("SELECT stock FROM products WHERE id = %s", (item['product_id'],))
             stock = cursor.fetchone()[0]
@@ -268,7 +268,7 @@ def checkout():
                 cursor.close()
                 return redirect(url_for('cart'))
 
-        # 🧾 Record each item into `purchases` and `sales`
+        #  Record each item into `purchases` and `sales`
         for item in cart:
             item_total = item['price'] * item['quantity']
 
@@ -408,16 +408,16 @@ def streamlit_dashboard():
                 creationflags=subprocess.CREATE_NEW_PROCESS_GROUP
             )
             session['streamlit_pid'] = proc.pid
-            print(f"✅ Streamlit started with PID {proc.pid}")
+            print(f"Streamlit started with PID {proc.pid}")
 
             time.sleep(3)
 
         except Exception as e:
-            print(f"❌ Failed to start Streamlit: {e}")
+            print(f" Failed to start Streamlit: {e}")
             flash("Could not start Streamlit dashboard.", "danger")
             return redirect(url_for('shop'))
     else:
-        print("✅ Streamlit already running.")
+        print(" Streamlit already running.")
 
     return redirect("http://localhost:8501")
 
@@ -470,14 +470,14 @@ vector_store = FAISS.load_local("faiss_index", embedding_model, allow_dangerous_
 from llama_cpp import Llama
 
 llm = Llama(
-    model_path="D:/the wine shop project/llama-4-7b.gguf",  # ✅ Absolute path
+    model_path="add_path",  #  Absolute path
         n_ctx=4096,
     n_threads=8,
     n_batch=256,
     verbose=False
 )
-print("✅ Model loaded successfully!")
-print("🧠 Model info:", llm.model_path, "| Context size:", llm.n_ctx)
+print("Model loaded successfully!")
+print(" Model info:", llm.model_path, "| Context size:", llm.n_ctx)
 def get_bot_response(user_input):
     try:
         system_prompt = (
@@ -491,7 +491,7 @@ def get_bot_response(user_input):
         docs = vector_store.similarity_search(user_input, k=5)
 
         # Log retrieved context
-        print("📚 Context docs retrieved:")
+        print(" Context docs retrieved:")
         for i, d in enumerate(docs, 1):
             print(f"\n--- Document {i} ---\n{d.page_content}")
 
@@ -512,7 +512,7 @@ def get_bot_response(user_input):
 ### Answer:
 """
 
-        print("🧠 Prompt:\n", prompt)
+        print(" Prompt:\n", prompt)
 
         # Model call
         response = llm(
@@ -523,13 +523,13 @@ def get_bot_response(user_input):
          stop=["###"]
         )
 
-        print("📦 Raw Response:\n", response)
+        print("Raw Response:\n", response)
 
         output = response["choices"][0]["text"].strip()
         return output or "Sorry, I didn't get that. Could you rephrase?"
 
     except Exception as e:
-        print("❌ Error:", str(e))
+        print("Error:", str(e))
         return "Oops! Something went wrong."
 
 
@@ -540,7 +540,7 @@ def get_bot_response(user_input):
 @app.route('/chatbot', methods=['POST'])
 def chatbot():
     user_message = request.json.get('message')
-    print("🤖 Received:", user_message)
+    print(" Received:", user_message)
 
     try:
         answer = get_bot_response(user_message)
@@ -548,7 +548,7 @@ def chatbot():
             answer = "Sorry, I didn't get that. Could you rephrase?"
         return jsonify({'response': answer})
     except Exception as e:
-        print("❌ Error in chatbot route:", str(e))  # This line is crucial
+        print(" Error in chatbot route:", str(e))  # This line is crucial
         return jsonify({'response': "Oops! Something went wrong. Please try again later."})
 
 
