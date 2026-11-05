@@ -188,7 +188,8 @@ GitHub: [mahisaahu](https://github.com/mahisaahu)
 ## Screenshots
 
 ### Wine Shop Homepage
-![Wine Shop Homepage](screenshots/home_page.png)
+![Wine Shop Homepage](https://github.com/mahisaahu/smart_wine_shop/blob/main/screenshort/home_page.png)
 
 ### Analytics Dashboard
-![Analytics Dashboard](screenshots/dashboard1.png)
+![Analytics Dashboard](https://github.com/mahisaahu/smart_wine_shop/blob/main/screenshort/dashboard1.png
+)
