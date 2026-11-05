@@ -53,6 +53,7 @@ It retrieves relevant FAQ information and uses it to generate responses to custo
 
 ## Technology Stack
 
+
 | Category | Technologies |
 |---|---|
 | Frontend | HTML, CSS, JavaScript, Bootstrap |
@@ -91,7 +92,32 @@ smart_wine_shop/
 ├── requirements.txt
 └── README.md
 ```
+## 🏗️ Project Architecture
 
+The application consists of three main components:
+
+1. **E-Commerce Web Application**
+   - Built using Flask, HTML, CSS, JavaScript and Bootstrap.
+   - Handles user authentication, product browsing, cart and checkout.
+   - Uses MySQL for storing application data.
+
+2. **Sales Analytics Dashboard**
+   - Built using Streamlit and Plotly.
+   - Retrieves sales data from MySQL.
+   - Provides interactive business insights and visualizations.
+   - Includes machine learning models for sales analysis and prediction.
+
+3. **AI-Powered FAQ Chatbot**
+   - Uses LangChain and Hugging Face embeddings.
+   - FAISS stores and retrieves relevant FAQ information.
+   - Uses a local language model through llama.cpp to generate responses.
+
+### Data Flow
+
+- Users interact with the Flask application.
+- Application data is stored in MySQL.
+- The Streamlit dashboard retrieves sales data from MySQL.
+- The chatbot retrieves relevant FAQ information through FAISS and generates responses using the local language model.
 ## Requirements
 
 Before running the project, install:
@@ -120,7 +146,26 @@ pip install -r requirements.txt
 
 Some additional packages imported by the application may need to be installed separately.
 
+
 ### 3. Configure MySQL
+
+### Database
+
+This project uses MySQL as its database.
+
+The original development database is not included in this repository. The database schema and sample data must be recreated locally before running the application.
+
+The application expects tables for:
+- users
+- products
+- purchases
+- sales
+- payment_details
+- newsletter_subscribers
+
+The Streamlit dashboard also retrieves sales information by joining the `sales` and `products` tables.
+
+MySQL connection credentials in the source code are example placeholders and must be configured locally.
 
 Install and start MySQL Server.
 
